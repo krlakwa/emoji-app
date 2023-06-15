@@ -1,70 +1,25 @@
-# Getting Started with Create React App
+Hi there! 😃
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The React application is very simple with basic styling. The main logic of the application is in `getMatchingEmojis` function. It gets a string and emojis data and returned emojis that corresponds to searched query.
+The data format looks like:
 
-## Available Scripts
+```json
+{
+  "😀": {
+    "name": "grinning face",
+    "category": "Smileys & Emotion"
+  },
+  "😃": {
+    "name": "grinning face with big eyes",
+    "category": "Smileys & Emotion"
+  }
+}
+```
 
-In the project directory, you can run:
+Each emoji is an object key and it's value consist name and category. The data corresponds to official Unicode docucumentation which you can find [there](https://unicode.org/Public/emoji/15.0/emoji-test.txt).
 
-### `npm start`
+At first function sanitizes inputString and the result is array of inputed words. All of them are lowercase, comas are removed so user is allowed to type search quary in both ways with and without comas. At this point `sanitizeSearchQuery` function checks if there are any smiles/faces (e.g. :) or :P) in the string and converts it to corresponding word description.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Then there is matching emojis search. Function iterates through input words array inside of it there are two another iterations through to look for a fitted words in emoji names and categories. I am not proud of using tested loops and if I had more time I would look for a solution to get rid of that. Function counts how much matching words are in emoji name and category and based on that accuration rate is calculated.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Matching emojis are returned as an array of objects which contains emoji, unicode, and accuration rate. And the end function returns `matchingEmojis` array sorted by accurationRate
