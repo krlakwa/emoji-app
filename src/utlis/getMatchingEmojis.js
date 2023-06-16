@@ -5,6 +5,11 @@ function sanitizeSearchQuery(search) {
     ':d': 'smile',
     ':p': 'tongue',
     ';p': 'tongue wink',
+    ':(': 'disappointed',
+    ';(': 'crying face',
+    ':o': 'open mouth',
+    ':*': 'kiss',
+    ';*': 'kiss',
   }
   return Boolean(emotions[search]) ? emotions[search] : search
 }
